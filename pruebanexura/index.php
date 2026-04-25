@@ -1,14 +1,10 @@
 <?php
 require_once 'app/controllers/empleadosController.php';
 
-
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 $url = explode('/', trim($_GET['url'] ?? '', '/'));
 $method = $url[1] ?? 'index';
 $controller = new EmpleadosController();
+
 
 switch ($method) {
     case 'index':
@@ -23,8 +19,12 @@ switch ($method) {
         $controller->crear();
         break;
 
+    case 'guardar':
+        $controller->crear();
+        break;
+
     case 'editar':
-        $id = $url[2];
+        $id = $url[2] ?? null;
         $controller->editar($id);
         break;
 

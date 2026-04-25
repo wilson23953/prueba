@@ -1,10 +1,6 @@
 <?php
 require_once __DIR__ . '/../models/EmpleadoModel.php';
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-
 class EmpleadosController {
 
     public function index(){
@@ -34,23 +30,42 @@ class EmpleadosController {
             'boletin' => '',
             'rol' => ''
         ];
-        
+
         require_once 'app/views/crearEmpleados.php';
     }
 
     public function crear(){
         $model = new EmpleadoModel();
-
         $_POST['boletin'] = $_POST['boletin'] ?? 0;
-        $id = $model->crear($_POST);
 
-        if ($id) {
-            $model->agregarRoles($id, $_POST['rol']);
+        // Editar al usuario
+        if($_POST['id']){
+            // editar
+            $model->editarEmpleado($_POST);
+            echo json_encode([
+                "success" => true,
+                "mensaje" => 'Empleado editado'
+            ]);
+            exit();
         }
 
-        echo json_encode([
-            "success" => true
-        ]);
+        //Crear
+        if($model->validarEmail($_POST['email'])){
+            echo json_encode([
+                "success" => false,
+                "mensaje" => 'Ya existe el correo'
+            ]);
+        } else {
+            $id = $model->crear($_POST);
+            if ($id) {
+                $model->agregarRoles($id, $_POST['rol']);
+            }
+            echo json_encode([
+                "success" => true,
+                "mensaje" => 'Empleado creado'
+            ]);
+            exit();
+        }
     }
 
     public function eliminar(){
@@ -65,14 +80,10 @@ class EmpleadosController {
     }
 
     public function editar($id){
-
-        if (!$id) {
-            echo "ID no válido";
-            return;
-        }
-
         $model = new EmpleadoModel();
-        $datos = $model->mostrarEmpleado($id);
+        if($id){
+            $datos = $model->mostrarEmpleado($id);
+        }
 
         require_once 'app/views/crearEmpleados.php';
     }

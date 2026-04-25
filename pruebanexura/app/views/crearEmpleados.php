@@ -6,7 +6,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-    <script src="../public/js/empleados.js" defer></script>
+    <script src="/pruebanexura/public/js/empleados.js" defer></script>
     <title>Prueba</title>
 </head>
 <body>
@@ -21,8 +21,9 @@
               Los campos con asteriscos (*) son obligatorios
             </div>
 
-          <form id="formNuevo" method="POST">
-            <input type="hidden" name="id" value="<?= $datos['id'] ?>">
+          <form id="formEmpleado" method="POST">
+
+            <input type="hidden" id="id" name="id" value="<?= $datos['id'] ?>">
             <div class="row mb-3 align-items-center">
               <label class="col-sm-3 col-form-label text-end">Nombre completo *</label>
               <div class="col-sm-9">
@@ -58,7 +59,7 @@
             <div class="row mb-3 align-items-center">
               <label class="col-sm-3 col-form-label text-end">Área *</label>
               <div class="col-sm-9">
-                <select class="form-select" name="area" aria-label="select">
+                <select class="form-select" name="area" id="area" aria-label="select">
                   <option selected>Seleccionar</option>
                   <option value="1" <?= $datos['area'] == '1' ? 'selected' : '' ?>>Ventas</option>
                   <option value="2" <?= $datos['area'] == '2' ? 'selected' : '' ?>>Calidad</option>
@@ -70,7 +71,7 @@
             <div class="row mb-3 align-items-center">
               <label class="col-sm-3 col-form-label text-end">Descripción *</label>
               <div class="col-sm-9">
-                <textarea class="form-control" name="descripcion" rows="3" placeholder="Descripción de la experiencia del empleado"><?= htmlspecialchars($datos['descripcion'] ?? '') ?></textarea>
+                <textarea class="form-control" id="descripcion" name="descripcion" rows="3" placeholder="Descripción de la experiencia del empleado"><?= htmlspecialchars($datos['descripcion'] ?? '') ?></textarea>
               </div>
             </div>
 
@@ -111,8 +112,12 @@
             </div>
 
             <div class="row">
+
+
+
               <div class="col-sm-9 offset-sm-3">
-                <button type="button" onclick="crearEmpleado();" class="btn btn-primary"><?= ($datos['id']) ? 'Editar' : 'Crear' ?></button>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                
               </div>
             </div>
           </form>

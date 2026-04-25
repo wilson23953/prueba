@@ -1,11 +1,6 @@
 <?php
 require_once __DIR__ . '/../../Database.php';
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
-
 class EmpleadoModel {
     private $db;
 
@@ -105,4 +100,33 @@ class EmpleadoModel {
             echo "Error: " . $e->getMessage();
         }
     }
+
+    public function editarEmpleado($data){
+        $sql = "UPDATE empleados 
+                SET nombre = ?, email = ?, sexo = ?, area_id = ?, descripcion = ?, boletin = ?
+                WHERE id = ?";
+
+        $stmt = $this->db->prepare($sql);
+
+        $data = $stmt->execute([$data['nombre'],$data['email'],$data['sexo'],$data['area'],$data['descripcion'],$data['boletin'], $data['id']]);
+
+        return $data;
+    }
+
+    public function validarEmail($email){
+        try {
+            $sql = "SELECT * FROM `empleados` WHERE email LIKE :email";
+            
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute([
+              ":email" => "%$email%"
+            ]);
+            return $stmt->fetchColumn() > 0;
+
+            die(); 
+        } catch (Exception $e) {
+            echo "Error: " . $e->getMessage();
+        }
+    }
 };
+
