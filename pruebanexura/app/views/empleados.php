@@ -10,7 +10,6 @@
     <title>Prueba</title>
 </head>
 <body>
-
     <div class="container mt-3">
         <header>
             <h1>Lista de empleados</h1>
@@ -53,6 +52,5 @@
             </table>
         </main>
     </div>
-
 </body>
 </html>

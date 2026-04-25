@@ -17,8 +17,6 @@ class EmpleadoModel {
             $stmt = $this->db->prepare($sql);
             $stmt->execute();
             return $resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-            die(); 
         } catch (Exception $e) {
             echo "Error: " . $e->getMessage();
         }
@@ -35,8 +33,6 @@ class EmpleadoModel {
             $stmt = $this->db->prepare($sql);
             $stmt->execute([$id]);
             return $stmt->fetch(PDO::FETCH_ASSOC);
-
-            die(); 
         } catch (Exception $e) {
             echo "Error: " . $e->getMessage();
         }
@@ -77,19 +73,6 @@ class EmpleadoModel {
         }
     }
 
-    public function listarAreas() {
-        try {
-            $sql = "SELECT id, nombre FROM areas";
-            $stmt = $this->db->prepare($sql);
-            $stmt->execute();
-            return $resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-            die(); 
-        } catch (Exception $e) {
-            echo "Error: " . $e->getMessage();
-        }
-    }
-
     public function agregarRoles($id, $rol){
         try {
             $sql = "INSERT INTO empleado_rol (empleado_id, rol_id) VALUES (?, ?)";
@@ -107,7 +90,6 @@ class EmpleadoModel {
                 WHERE id = ?";
 
         $stmt = $this->db->prepare($sql);
-
         $data = $stmt->execute([$data['nombre'],$data['email'],$data['sexo'],$data['area'],$data['descripcion'],$data['boletin'], $data['id']]);
 
         return $data;
@@ -115,18 +97,13 @@ class EmpleadoModel {
 
     public function validarEmail($email){
         try {
-            $sql = "SELECT * FROM `empleados` WHERE email LIKE :email";
+            $sql = "SELECT COUNT(*) FROM empleados WHERE email LIKE ?";
             
             $stmt = $this->db->prepare($sql);
-            $stmt->execute([
-              ":email" => "%$email%"
-            ]);
+            $stmt->execute([$email]);
             return $stmt->fetchColumn() > 0;
-
-            die(); 
         } catch (Exception $e) {
             echo "Error: " . $e->getMessage();
         }
     }
 };
-

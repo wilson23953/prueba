@@ -38,9 +38,7 @@ class EmpleadosController {
         $model = new EmpleadoModel();
         $_POST['boletin'] = $_POST['boletin'] ?? 0;
 
-        // Editar al usuario
         if($_POST['id']){
-            // editar
             $model->editarEmpleado($_POST);
             echo json_encode([
                 "success" => true,
@@ -49,7 +47,6 @@ class EmpleadosController {
             exit();
         }
 
-        //Crear
         if($model->validarEmail($_POST['email'])){
             echo json_encode([
                 "success" => false,
@@ -84,7 +81,6 @@ class EmpleadosController {
         if($id){
             $datos = $model->mostrarEmpleado($id);
         }
-
         require_once 'app/views/crearEmpleados.php';
     }
 };

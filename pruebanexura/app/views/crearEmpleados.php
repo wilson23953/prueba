@@ -60,7 +60,6 @@
               <label class="col-sm-3 col-form-label text-end">Área *</label>
               <div class="col-sm-9">
                 <select class="form-select" name="area" id="area" aria-label="select">
-                  <option selected>Seleccionar</option>
                   <option value="1" <?= $datos['area'] == '1' ? 'selected' : '' ?>>Ventas</option>
                   <option value="2" <?= $datos['area'] == '2' ? 'selected' : '' ?>>Calidad</option>
                   <option value="3" <?= $datos['area'] == '3' ? 'selected' : '' ?>>Producción</option>
@@ -112,18 +111,12 @@
             </div>
 
             <div class="row">
-
-
-
               <div class="col-sm-9 offset-sm-3">
-                <button type="submit" class="btn btn-primary">Guardar</button>
-                
+                <button type="submit" class="btn btn-primary">Guardar</button>                
               </div>
             </div>
           </form>
         </div>
-
     </div>
-
 </body>
 </html>
